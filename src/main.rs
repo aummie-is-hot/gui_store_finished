@@ -40,7 +40,7 @@ fn window_conf() -> Conf {
 #[macroquad::main(window_conf)]
 async fn main() {
     let texture_manager = TextureManager::new();
-    texture_manager.preload_with_loading_screen(&["assets/pie.png", "assets/balls.png", "assets/hassan.png", "assets/cake.png", "assets/cookies.png"], None, None).await;
+    texture_manager.preload_with_loading_screen(&["assets/pie.png", "assets/balls.png", "assets/hassan.png", "assets/cake.png", "assets/cookies.png", "assets/edward.png"], None, None).await;
     
     let img_balls = StillImage::from_preload(
         texture_manager.get_preload("assets/balls.png").unwrap(),
@@ -87,6 +87,15 @@ async fn main() {
         true,
         1.0,
     );
+    let img_edward = StillImage::from_preload(
+        texture_manager.get_preload("assets/edward.png").unwrap(),
+        1700.0,
+        768.0,
+        0.0,
+        0.0,
+        true,
+        1.0,
+    );
 let mut input_balls  = TextInput::new(500.0, 300.0, 150.0, 40.0, 25.0);
 let mut input_hassan  = TextInput::new(750.0, 300.0, 150.0, 40.0, 25.0);
 let mut input_cookies  = TextInput::new(950.0, 300.0, 150.0, 40.0, 25.0);
@@ -94,7 +103,7 @@ let mut input_cake  = TextInput::new(1150.0, 300.0, 150.0, 40.0, 25.0);
 let mut input_pie  = TextInput::new(1350.0, 300.0, 150.0, 40.0, 25.0);
 let mut input_given_money  = TextInput::new(50.0, 350.0, 350.0, 40.0, 20.0);
 let mut total: f64 = 0.0;
-input_balls.set_allowed_chars("0123456789");
+//input_balls.set_allowed_chars("0123456789");
 
 input_hassan.set_allowed_chars("0123456789");
 
@@ -118,7 +127,7 @@ input_given_money.set_allowed_chars("0123456789.");
     btn_exit.with_hover_text_color(WHITE);
     btn_calc_change.enabled = false;
     input_given_money.set_enabled(false);
-
+let mut edward: bool = false;
     loop {
         clear_background(WHITE);
         //draw_grid(50.0, BROWN);
@@ -142,6 +151,9 @@ input_given_money.set_allowed_chars("0123456789.");
             lbl_text.set_text(format!("Total: ${:.2}", total));
             btn_calc_change.enabled = true;
     input_given_money.set_enabled(true);
+    if balls_text.trim() == "edward"{
+        edward = true;
+    }
         };
         
         
@@ -159,6 +171,7 @@ input_given_money.set_allowed_chars("0123456789.");
         input_cake.draw();
         img_pie.draw();
         input_pie.draw();
+        
         lbl_text.draw();
         input_given_money.draw();
         if btn_calc_change.click(){
@@ -177,6 +190,10 @@ input_given_money.set_allowed_chars("0123456789.");
             }
             
         }
+         if edward == true {
+            img_edward.draw();
+        }
         next_frame().await;
+       
     }
 }
