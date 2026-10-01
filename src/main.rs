@@ -103,7 +103,7 @@ let mut input_cake  = TextInput::new(1150.0, 300.0, 150.0, 40.0, 25.0);
 let mut input_pie  = TextInput::new(1350.0, 300.0, 150.0, 40.0, 25.0);
 let mut input_given_money  = TextInput::new(50.0, 350.0, 350.0, 40.0, 20.0);
 let mut total: f64 = 0.0;
-//input_balls.set_allowed_chars("0123456789");
+input_balls.set_allowed_chars("0123456789");
 
 input_hassan.set_allowed_chars("0123456789");
 
@@ -138,6 +138,7 @@ let mut edward: bool = false;
             
             let balls_text = input_balls.get_text();
             let input_balls = balls_text.trim().parse::<f64>();
+            let edwardcheck = balls_text.trim().parse::<f64>();
             let hassans_text = input_hassan.get_text();
             let input_hassan = hassans_text.trim().parse::<f64>();
             let cookies_text = input_cookies.get_text();
@@ -151,7 +152,7 @@ let mut edward: bool = false;
             lbl_text.set_text(format!("Total: ${:.2}", total));
             btn_calc_change.enabled = true;
     input_given_money.set_enabled(true);
-    if balls_text.trim() == "edward"{
+    if edwardcheck.unwrap_or(0.0) == 2010.0{
         edward = true;
     }
         };
@@ -192,7 +193,10 @@ let mut edward: bool = false;
         }
          if edward == true {
             img_edward.draw();
+            lbl_text.set_text("i dont know him him");
+            lbl_text.with_colors(WHITE, Some(DARKGRAY));
         }
+        lbl_text.draw();
         next_frame().await;
        
     }
