@@ -179,6 +179,11 @@ let mut edward: bool = false;
            let given_money_text = input_given_money.get_text();
             let given_money = given_money_text.trim().parse::<f64>();
             let change = given_money.unwrap_or(0.0) - total;
+            if given_money_text.trim().is_empty() {
+                lbl_text.set_text("Please enter the amount of money given.");
+            } else if input_given_money.get_text() == "."{
+                lbl_text.set_text("Please enter a valid amount of money.");
+            } else
             if change > 0.0 {
                 lbl_text.set_text(format!("Change: ${:.2}", change));
             }
