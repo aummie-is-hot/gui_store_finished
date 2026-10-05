@@ -158,9 +158,7 @@ let mut edward: bool = false;
         };
         
         
-        if btn_exit.click() {
-            break;
-        };
+        
         
         img_balls.draw();
         input_balls.draw();
@@ -202,6 +200,9 @@ let mut edward: bool = false;
             lbl_text.with_colors(WHITE, Some(DARKGRAY));
         }
         lbl_text.draw();
+        if btn_exit.click() {
+            break;
+        };
         next_frame().await;
        
     }
